@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Form validation</title>
+	<link rel="stylesheet" type="text/css" href="form.css">
+</head>
+<body>
+	<div id="wrapper">
+		<h1>Fill your information</h1>
+		<form method="POST" name="vform" id="frm1">
+		<table >
+        <tr>
+        <td> <h4>First Name :</h4> </td>
+		<td>
+			<div>
+				<input id="fusername" type="text" name="fusername" class="textInput" onchange="return Validatefname();" placeholder="First Name Solluga" maxlength="50" >
+				<div id="fname_error" class="val_error"></div>
+			</div>
+		</td></tr>
+        <tr>
+		<td> <h4>Last Name :</h4> </td>
+		<td>
+			<div>
+				<input id="lusername" type="text" name="lusername" class="textInput" onchange="return Validatelname();" placeholder="Last Name Solluga" maxlength="50" >
+				<div id="lname_error" class="val_error"></div>
+			</div>
+		</td></tr>
+		<tr>
+		<td>  <h4>Phone :  </h4></td>
+		<td>
+			<div>
+				<input id="phonenumber" type="text" name="phone number" class="textInput" onchange="return Validatephone();" placeholder="number write pannuga" maxlength="10" >
+				<div id="phonenumber_error" class="val_error"></div>
+			</div>
+		</td></tr>
+		<tr>
+		<td> <h4> Email :  </h4></td>
+		<td>
+			<div>
+				<input type="email" name="email" class="textInput" onchange="return Validateemail();" placeholder="gmailid mattum use pannuga">
+				<div id="email_error" class="val_error"></div>
+			</div>
+		</td></tr>
+		<div>
+		<tr>
+		<td>  <h4>Address :</h4> </td>
+		<td>
+			<div>
+			<input id="address" type="text" name="address" class="textInput" onchange="return Validateaddress();" placeholder="write your Address properly"  >
+			</div>
+			<div id="address_error" class="val_error"></div>
+		</td></tr>
+		<tr>
+		<td>  <h4>Country: </h4> </td>
+		<td>
+		<div>
+		<select id="country"  name="country" class="textInput" onchange="return Validatecountry();">
+					<option value="">--Select your country--</option>
+					<option value="Afghanistan">Afghanistan</option>
+					<option value="US">US</option>
+					<option value="UK">UK</option>
+					<option value="India">India</option>
+					<option value="Pakistan">Pakistan</option>
+					<option value="Afghanistan">japan</option>
+					<option value="US">cuba</option>
+					<option value="UK">oman</option>
+					<option value="India">norway</option>
+					<option value="Pakistan">sri lanka</option>
+					<option value="Afghanistan">italy</option>
+					<option value="US">iran</option>
+					<option value="UK">iceland</option>
+					<option value="India">togo</option>
+					<option value="Pakistan">qatar</option>
+			</select>
+			</div>
+			<div id="country_error" class="val_error"></div>
+		</td></tr>
+		<tr>
+		<td> <h4> Zipcode: </h4> </td>
+		<td>
+			<div>
+			<input id="zipcode" type="text" name="zipcode" class="textInput" onchange="return Validatezipcode();" placeholder="6 digits matum pothu" minlength="2" maxlength="6" >
+			</div>
+			<div id="zipcode_error" class="val_error"></div>
+		</td></tr>
+		</table>
+			<div>
+				<input type="submit" id="submit" class="btn" value="submit" onclick="ConvertToJSON()"  disabled>
+				<br></br>
+				<p><span id='display'></span></p>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	document.onchange=function() {
+				if(document.forms.namedItem("vform").fusername.value ==''|
+                document.forms.namedItem("vform").lusername.value ==''|
+				document.forms.namedItem("vform").phonenumber.value == '' | 
+				document.forms.namedItem("vform").email.value == '' |  
+				document.forms.namedItem("vform").address.value == '' | 
+				document.forms.namedItem("vform").country.value == '' | 
+				document.forms.namedItem("vform").zipcode.value == '' )
+				{
+					document.forms.namedItem("vform").submit.disabled = true;
+				}
+				
+				else
+				{
+					document.forms.namedItem("vform").submit.disabled = false;
+				}
+			}
+	function Validatefname(){
+		//Username
+			var fname = document.getElementById("fusername");
+			var ferror = document.getElementById("fname_error");
+			var fpattern=/^[a-zA-Z][a-zA-Z\s]+$/;
+			console.log(fname.value);
+			var fp1=(fpattern.test(fname.value));
+			console.log(fp1);
+			if ( fname.value !="" &&  fp1 == false ) 
+			{
+			//	alert("fusername.value"+fname.value);
+				fname.style.border="1px solid red";
+				ferror.textContent = "Enter characters only";
+				fname.focus() ;
+				return false;
+			}
+			else{
+				fname.style.border = "1px solid #5E6E66";
+				ferror.innerHTML = "";
+				return true;
+				}
+			}
+	function Validatelname(){		
+            var lusername = document.forms.namedItem("vform").lusername;
+			var lname_error = document.getElementById("lname_error");
+			var lpattern=/^[a-zA-Z][a-zA-Z\s]+$/;
+			var lp1=(lpattern.test(lusername.value));
+			if ( lusername.value !="" &&  lp1 == false ) 
+			{
+				lusername.style.border="1px solid red";
+				lname_error.textContent = "Enter characters only";
+				lusername.focus() ;
+				return false;
+			}else{
+				lusername.style.border = "1px solid #5E6E66";
+				lname_error.innerHTML = "";
+				return true;
+				}
+	}
+		//phonenumber
+	function Validatephone(){
+			var phonenumber = document.forms.namedItem("vform").phonenumber;
+			var phonenumber_error = document.getElementById("phonenumber_error");
+			var phonepattern=/[0-9]{10}$/;
+			var p2=(phonepattern.test(phonenumber.value));
+			if( phonenumber.value !="" &&  p2 == false) 
+			{
+				phonenumber.style.border="1px solid red";
+				phonenumber_error.textContent = "Enter the valid Phonenumber with 10 digits";
+				phonenumber.focus();
+				return false;
+			}
+			else{
+				phonenumber.style.border = "1px solid #5E6E66";
+				phonenumber_error.innerHTML = "";
+				return true;
+				}
+			}
+		//email
+	function Validateemail(){
+			var emailpattern=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@gmail.com$/;
+			var email = document.forms.namedItem("vform").email;
+			var email_error = document.getElementById("email_error");
+			var p3=(emailpattern.test(email.value));
+			if (email.value !="" &&  p3 == false) 
+			{
+				email.style.border="1px solid red";
+				email_error.textContent = "Enter valid mail id with @gmail.com";
+				email.focus();
+				return false;
+			}
+			else{
+				email.style.border = "1px solid #5E6E66";
+				email_error.innerHTML = "";
+				return true;
+				}
+			}
+	function Validateaddress(){
+			var address = document.forms.namedItem("vform").address;
+			var address_error = document.getElementById("address_error");
+			var addresspattern=/[a-zA-Z0-9,#\s-]+$/;
+			var p4=(addresspattern.test(address.value));
+			if (address.value !="" &&  p4 == false) 
+			{
+				address.style.border="1px solid red";
+				address_error.textContent = "Enter the proper address";
+				address.focus();
+				return false;
+			}
+			else{
+				address.style.border = "1px solid #5E6E66";
+				address_error.innerHTML = "";
+				return true;
+				}
+			}
+	function Validatecountry(){
+			//country
+			var country = document.forms.namedItem("vform").country;
+			var country_error = document.getElementById("country_error");
+			if (country.value =="") 
+			{
+				country.style.border="1px solid red";
+				country_error.textContent = "Enter the country";
+				country.focus();
+				return false;
+			}
+			else{
+				country.style.border = "1px solid #5E6E66";
+				country_error.innerHTML = "";
+				return true;
+				}
+			}
+	function Validatezipcode(){
+			//zipcode
+			var zipcode = document.forms.namedItem("vform").zipcode;
+			var zipcode_error = document.getElementById("zipcode_error");
+			var zipcodepattern=/[0-9]{6}$/;
+			var p5=(zipcodepattern.test(zipcode.value));
+			if (zipcode.value !="" &&  p5 == false) 
+			{
+				zipcode_error.textContent = "Enter the valid Zipcode";
+				zipcode.focus();
+				return false;
+			}
+			else{
+				zipcode.style.border = "1px solid #5E6E66";
+				zipcode_error.innerHTML = "";
+				return true;
+				}
+			}
+	function ConvertToJSON(){
+		event.preventDefault();
+			var data = {
+				"Firstname":document.vform.fusername.value,
+				"Lastname":document.vform.lusername.value,
+				"Phone Number":document.vform.phonenumber.value,
+				"Email-id":document.vform.email.value,
+				"Street Name":document.vform.address.value,
+				"Country":document.vform.country.value,
+				"Zipcode":document.vform.zipcode.value,         
+			};
+
+		console.log(data);
+	}
+	</script>	
+
